@@ -1,7 +1,7 @@
 package com.example.newsproject.data.di
 
 import com.example.newsproject.common.Constants
-import com.example.newsproject.data.remote.CoinPaprikaApi
+import com.example.newsproject.data.remote.CoinPaprikaService
 import com.example.newsproject.data.repository.CoinRepositoryImpl
 import com.example.newsproject.domain.repository.CoinRepository
 import dagger.Module
@@ -18,17 +18,15 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePaprikaApi(): CoinPaprikaApi {
+    fun providePaprikaApi(): CoinPaprikaService {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(CoinPaprikaApi::class.java)
+            .create(CoinPaprikaService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideCoinRepository(api: CoinPaprikaApi): CoinRepository {
-        return CoinRepositoryImpl(api)
-    }
+    fun provideCoinRepository(coinRepositoryImpl: CoinRepositoryImpl): CoinRepository = coinRepositoryImpl
 }

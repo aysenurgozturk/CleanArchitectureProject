@@ -20,7 +20,6 @@ import com.example.newsproject.presentation.coin_list.components.CoinListItem
 
 @Composable
 fun CoinListScreen(
-    navController: NavController,
     viewModel: CoinListViewModel= hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -29,9 +28,7 @@ fun CoinListScreen(
             items(state.coins) { coin ->
                 CoinListItem(
                     coin = coin,
-                    onItemClick = {
-                        navController.navigate(Screen.CoinDetailScreen.route + "/${coin.id}")
-                    }
+                    onItemClick = {}
                 )
             }
         }
